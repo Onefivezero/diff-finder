@@ -1,13 +1,12 @@
 import unittest
 from diff_finder.diff_finder import DiffFinder, DiffReason
 
+
 class TestDiffFinder(unittest.TestCase):
-    
+
     def test__basic(self):
         diffs = DiffFinder.find_diffs({"a": 12}, {"a": "a"})
-        self.assertEqual([
-            DiffReason(description="a=12 != b='a'", path=".a")
-        ], diffs)
+        self.assertEqual([DiffReason(description="a=12 != b='a'", path=".a")], diffs)
 
     def test__nested(self):
         a = {
@@ -20,7 +19,7 @@ class TestDiffFinder(unittest.TestCase):
                 ],
                 "bool": True,
                 "nested": {"a": {"b": {"c": "d"}}},
-            }
+            },
         }
         b = {
             "status": 400,
@@ -32,7 +31,7 @@ class TestDiffFinder(unittest.TestCase):
                 ],
                 "bool": False,
                 "nested": {"a": {"b": {"c": "x"}}},
-            }
+            },
         }
 
         expected_diffs = [
@@ -45,5 +44,5 @@ class TestDiffFinder(unittest.TestCase):
             DiffReason(description="a=True != b=False", path=".body.bool"),
         ]
         diffs = DiffFinder.find_diffs(a, b)
-        
+
         self.assertCountEqual(expected_diffs, diffs)
