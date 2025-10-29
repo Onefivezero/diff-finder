@@ -1,5 +1,5 @@
 import unittest
-from diff_finder.diff_finder import DiffFinder, DiffReason
+from diff_finder import DiffFinder, DiffReason
 
 
 class TestDiffFinder(unittest.TestCase):
